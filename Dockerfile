@@ -11,7 +11,8 @@ RUN apt-get update -qq && apt-get install -qqy \
     net-tools \
     iptables \
     iproute2 \
-    systemd && \
+    systemd \
+    libssl1.0.0  && \
     rm -rf /var/lib/apt/lists/*
 
 RUN AZ_REPO=$(lsb_release -cs) && \
@@ -27,8 +28,9 @@ RUN curl https://packages.microsoft.com/config/ubuntu/18.04/prod.list > ./micros
 RUN apt-get update && apt-get install -y --no-install-recommends \
     azure-cli \
     moby-cli \
-    moby-engine && \ 
-    apt-get install -y --no-install-recommends iotedge=1.0.0-1 && \ 
+    moby-engine && \
+    curl -L https://github.com/Azure/azure-iotedge/releases/download/1.0.9-rc5/libiothsm-std_1.0.9.rc5-1-1_debian9_amd64.deb -o libiothsm-std.deb && dpkg -i ./libiothsm-std.deb && \
+    curl -L https://github.com/Azure/azure-iotedge/releases/download/1.0.9-rc5/iotedge_1.0.9.rc5-1_debian9_amd64.deb -o iotedge.deb && dpkg -i ./iotedge.deb && \
     rm -rf /var/lib/apt/lists/*
     
 RUN az extension add --name azure-cli-iot-ext

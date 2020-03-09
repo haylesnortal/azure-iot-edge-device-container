@@ -26,7 +26,7 @@ agent:
   type: "docker"
   env: {}
   config:
-    image: "mcr.microsoft.com/azureiotedge-agent:1.0"
+    image: "mcr.microsoft.com/azureiotedge-agent:1.0.9-rc5"
     auth: {}
 hostname: $(cat /proc/sys/kernel/hostname)
 connect:
@@ -39,6 +39,10 @@ homedir: "/var/lib/iotedge"
 moby_runtime:
   docker_uri: "/var/run/docker.sock"
   network: "azure-iot-edge"
+#certificates:
+#  device_ca_cert: "/var/lib/iotedge/tools/CACertificates/certs/iot-edge-device-devicecontainer_001.cert.pem"
+#  device_ca_pk: "/var/lib/iotedge/tools/CACertificates/private/iot-edge-device-devicecontainer_001.key.pem"
+#  trusted_ca_certs: "/var/lib/iotedge/tools/CACertificates/certs/azure-iot-test-only.root.ca.cert.pem"
 EOF
 
 cat /etc/iotedge/config.yaml
